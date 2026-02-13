@@ -143,7 +143,6 @@ export function ValentineMobile() {
   const [noPosition, setNoPosition] = useState({ x: 0, y: 0 })
   const [hearts, setHearts] = useState<Array<{ id: number; left: number; top: number; duration: number }>>([])
   const noButtonRef = useRef<HTMLButtonElement>(null)
-  const [showOptions, setShowOptions] = useState(false)
 
   // Generate heart positions only on client after hydration
   useEffect(() => {
@@ -161,20 +160,10 @@ export function ValentineMobile() {
     const randomY = Math.random() * (window.innerHeight - 50)
     setNoPosition({ x: randomX, y: randomY })
     setNoClickCount(prev => prev + 1)
-    
-    // Show options after a few attempts
-    if (noClickCount >= 4) {
-      setShowOptions(true)
-    }
   }
 
   const handleYesClick = () => {
     setYesClicked(true)
-  }
-
-  const handleNoOption = () => {
-    setShowOptions(false)
-    moveNoButton()
   }
 
   return (
@@ -224,52 +213,28 @@ export function ValentineMobile() {
             YES! 💖
           </Button>
 
-          {/* No Button Options for Mobile */}
-          {!showOptions ? (
-            <button
-              ref={noButtonRef}
-              onClick={moveNoButton}
-              style={
-                noClickCount > 0
-                  ? {
-                      position: 'fixed',
-                      left: `${noPosition.x}px`,
-                      top: `${noPosition.y}px`,
-                      width: '100px',
-                    }
-                  : { width: '100%', maxWidth: '280px' }
-              }
-              className="px-8 py-6 text-xl font-bold rounded-full bg-red-500 text-white hover:bg-red-600 transition-all transform hover:scale-105 cursor-pointer z-50"
-            >
-              No ✗
-            </button>
-          ) : (
-            // Alternative options after multiple "No" clicks
-            <div className="fixed inset-x-0 bottom-0 bg-white/90 backdrop-blur-sm p-6 rounded-t-3xl shadow-2xl z-50 animate-slide-up">
-              <p className="text-center text-lg text-gray-700 mb-4">
-                🤨 Are you really sure?
-              </p>
-              <div className="flex gap-3 justify-center">
-                <Button
-                  onClick={handleYesClick}
-                  className="flex-1 px-4 py-3 text-lg font-semibold bg-green-500 hover:bg-green-600 text-white rounded-full"
-                >
-                  OK fine, YES! 💕
-                </Button>
-                <Button
-                  onClick={handleNoOption}
-                  variant="outline"
-                  className="flex-1 px-4 py-3 text-lg font-semibold border-red-300 text-red-500 hover:bg-red-50 rounded-full"
-                >
-                  Still No 😤
-                </Button>
-              </div>
-            </div>
-          )}
+          {/* No Button - Elusive on mobile too */}
+          <button
+            ref={noButtonRef}
+            onClick={moveNoButton}
+            style={
+              noClickCount > 0
+                ? {
+                    position: 'fixed',
+                    left: `${noPosition.x}px`,
+                    top: `${noPosition.y}px`,
+                    width: '100px',
+                  }
+                : { width: '100%', maxWidth: '280px' }
+            }
+            className="px-8 py-6 text-xl font-bold rounded-full bg-red-500 text-white hover:bg-red-600 transition-all transform hover:scale-105 cursor-pointer z-50"
+          >
+            No ✗
+          </button>
         </div>
 
         {/* Click counter - Mobile Optimized */}
-        {noClickCount > 0 && !yesClicked && !showOptions && (
+        {noClickCount > 0 && !yesClicked && (
           <p className="mt-6 text-sm text-gray-600">
             You've tried to escape {noClickCount} time{noClickCount !== 1 ? 's' : ''}! 😏
           </p>
@@ -300,24 +265,7 @@ export function ValentineMobile() {
           0%, 100% { transform: translateY(0px) translateX(0px); }
           50% { transform: translateY(-15px) translateX(8px); }
         }
-        @keyframes slide-up {
-          from {
-            transform: translateY(100%);
-          }
-          to {
-            transform: translateY(0);
-          }
-        }
-        .animate-slide-up {
-          animation: slide-up 0.3s ease-out;
-        }
       `}</style>
     </div>
   )
-}
-
-// Main export - automatically shows the right version based on screen size
-export default function ValentineWrapper() {
-  const isMobile = useMediaQuery({ maxWidth: 768 })
-  return isMobile ? <ValentineMobile /> : <Valentine />
 }
