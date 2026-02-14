@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Button } from './ui/button'
-import { useMediaQuery } from 'react-responsive'
 
 export function Valentine() {
   const [noClickCount, setNoClickCount] = useState(0)
@@ -44,7 +43,7 @@ export function Valentine() {
         {/* Messages based on click count */}
         {noClickCount >= 3 && noClickCount < 6 && !yesClicked && (
           <p className="text-2xl md:text-3xl text-red-500 font-semibold mb-8 animate-pulse">
-             what are u doinggggg
+            the no button is now broken from too many clicks...try the other button
           </p>
         )}
 
@@ -57,10 +56,7 @@ export function Valentine() {
         {yesClicked && (
           <div className="mb-8 animate-in fade-in zoom-in">
             <p className="text-4xl md:text-5xl font-bold text-green-600 mb-4">
-              YES!! 🎉🎊
-            </p>
-            <p className="text-2xl text-red-600 font-semibold">
-               finallyyyy haha ❤️❤️
+              finallyyyy haha ❤️❤️
             </p>
           </div>
         )}
@@ -77,7 +73,7 @@ export function Valentine() {
                 : 'bg-green-500 hover:bg-green-600 text-white'
             }`}
           >
-            Yes ✓
+            ✓
           </Button>
 
           {/* No Button - Elusive */}
@@ -95,7 +91,7 @@ export function Valentine() {
             }
             className="px-12 py-8 text-2xl font-bold rounded-full bg-red-500 text-white hover:bg-red-600 transition-all transform hover:scale-110 cursor-pointer z-50"
           >
-            No ✗
+            ✗
           </button>
         </div>
 
@@ -177,7 +173,7 @@ export function ValentineMobile() {
         {/* Messages based on click count */}
         {noClickCount >= 2 && noClickCount < 4 && !yesClicked && (
           <p className="text-xl text-red-500 font-semibold mb-6 animate-pulse">
-            🤔 are u sure?
+            the no button is now broken from too many clicks...try the other button
           </p>
         )}
 
@@ -190,9 +186,6 @@ export function ValentineMobile() {
         {yesClicked && (
           <div className="mb-6 animate-in fade-in zoom-in">
             <p className="text-3xl font-bold text-green-600 mb-2">
-              YAY!! 🎉
-            </p>
-            <p className="text-lg text-red-600 font-semibold">
               you made the right choice ❤️
             </p>
           </div>
@@ -210,7 +203,7 @@ export function ValentineMobile() {
                 : 'bg-green-500 hover:bg-green-600 text-white'
             }`}
           >
-            YES! 💖
+            ✓
           </Button>
 
           {/* No Button - Elusive on mobile too */}
@@ -229,7 +222,7 @@ export function ValentineMobile() {
             }
             className="px-8 py-6 text-xl font-bold rounded-full bg-red-500 text-white hover:bg-red-600 transition-all transform hover:scale-105 cursor-pointer z-50"
           >
-            No ✗
+            ✗
           </button>
         </div>
 
@@ -269,3 +262,6 @@ export function ValentineMobile() {
     </div>
   )
 }
+
+// Also export as default if needed
+export default Valentine
